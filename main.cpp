@@ -158,8 +158,12 @@ Se vor respecta urmatoarele indicatii de implementare:
 */
 
 #include "lexical_analyzer.h"
+// #include <iostream>
+// using namespace std;
+int main(int argc, char *argv[]) {
 
-int main(char **argv[]) {
+   std :: cout << "Hello World!\n";
+
    std :: ifstream sourceFile(argv[1]);
 
    LexicalAnalyzer *lexicalAnalyzer = new LexicalAnalyzer(argv[1]);
@@ -168,17 +172,24 @@ int main(char **argv[]) {
    int index = 0;
    bool commented = false;
    while(getline(sourceFile, currentLine)) {
+      std :: cout << "Current line: " << currentLine << "\n";
       while(index < currentLine.length()) {
-         commented = lexicalAnalyzer.makeTokens(currentLine, commented, &index);
+         std :: cout << "Index: " << index << "\n";
+         commented = lexicalAnalyzer->makeTokens(currentLine, commented, index);
       }
    }
+   std :: cout << "Token creation finished\n";
 
-   index = 0;
-   while(index < LexicalAnalyzer.getNumberOfTokens()) {
-      Token *token = LexicalAnalyzer.getToken(index);
-      std :: cout << token->type << " " << token->value << "\n";
+   std :: cout << "Number of tokens: " << lexicalAnalyzer->getNumberOfTokens() << "\n";
+   // index = 0;
+   // while(index < lexicalAnalyzer->getNumberOfTokens()) {
+   //    std :: cout << "Token " << index << "\n";
+   //    Token token = lexicalAnalyzer->getToken(index);
+   //    std :: cout << token.type << " " << token.value << "\n";
    //    index++;
    // }
+
+   lexicalAnalyzer->printTokens();
 
    return 0;
 }
