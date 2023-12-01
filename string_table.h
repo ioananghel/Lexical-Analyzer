@@ -39,6 +39,7 @@ public:
         if(this->head->info == "") {
             std :: cout << "Head is null" << std :: endl;
             this->head = newNode;
+            this->head->next = nullptr;
             return 0;
         }
         else {
@@ -46,13 +47,19 @@ public:
             std :: cout << "Current Node: " << currentNode->info << std :: endl;
             int index = 0;
             while(currentNode->next != nullptr) {
+                std :: cout << "\tGoing Through the nodes, currently at: " << currentNode->info << std :: endl;
                 if(currentNode->info == _info) {
+                    std :: cout << "Found the node at " << index << std :: endl;
                     return index;
                 }
                 currentNode = currentNode->next;
                 index++;
             }
+            std :: cout << "Adding node: " << newNode->info << std :: endl;
+            std :: cout << "Current Node: " << currentNode->info << std :: endl;
+            newNode->next = nullptr;
             currentNode->next = newNode;
+            std :: cout << "Node added" << std :: endl;
             index++;
             return index;
         }
