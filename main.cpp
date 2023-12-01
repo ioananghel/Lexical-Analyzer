@@ -176,7 +176,8 @@ int main(int argc, char *argv[]) {
    int index = 0;
    bool commented = false;
    while(getline(sourceFile, currentLine)) {
-      std :: cout << "Current line: " << currentLine << "\n";
+      index = 0;
+      std :: cout << "=============================\nCurrent line: \n\t" << currentLine << "\n";
       while(index < currentLine.length()) {
          std :: cout << "Index: " << index << "\n";
          commented = lexicalAnalyzer->makeTokens(currentLine, commented, index);
