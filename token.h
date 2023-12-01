@@ -4,7 +4,9 @@ std :: string types[] = {
     "IDENTIFICATOR",
     "CONSTANTA INTREAGA",
     "CONSTANTA REALA",
-    "CUVANT CHEIE"
+    "CUVANT CHEIE",
+    "STRING",
+    "OPERATOR"
 };
 
 struct Token {
