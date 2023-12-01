@@ -160,16 +160,6 @@ public:
     }
 
     Token getToken(int index) {
-        // tokenNode *currentNode = tokenList->getHead();
-        // std :: cout << "Getting token at " << index << std :: endl;
-        // std :: cout << "WEEEIRD " << currentNode->token->value << std :: endl;
-        // while(index--) {
-        //     std :: cout << "Searching for token at " << index << std :: endl;
-        //     currentNode = currentNode->next;
-        // }
-        // std :: cout << "Found token at " << index << std :: endl;
-        // return *(currentNode->token);
-
         std :: cout << "Getting token at " << index << std :: endl;
 
         Token copy;
@@ -179,5 +169,8 @@ public:
         std :: cout << "Returning token: " << types[copy.type] << " " << copy.value << std :: endl;
 
         return tokenList->getToken(index);
+    }
+    std :: string getFromStringTable(int index) {
+        return stringTable->getString(index);
     }
 };
