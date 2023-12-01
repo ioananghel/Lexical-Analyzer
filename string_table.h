@@ -57,4 +57,14 @@ public:
             return index;
         }
     }
+
+    std :: string getString(int index) {
+        Node *currentNode = this->head;
+        int i = 0;
+        while(i < index) {
+            currentNode = currentNode->next;
+            i++;
+        }
+        return currentNode->info;
+    }
 };
