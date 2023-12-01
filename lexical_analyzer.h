@@ -40,6 +40,7 @@ public:
     // get the next token from the source file
     bool makeTokens(std :: string _currentLine, bool commented, int &index) {
         std :: cout << "Making tokens on " << _currentLine << std :: endl;
+        std :: cout << "Commented status: " << commented << std :: endl;
         int lineLen = _currentLine.length();
         currentLine = _currentLine;
 
@@ -59,6 +60,21 @@ public:
         if(currentLine == "") {
             return 0;
         }
+        if(index + 1 < lineLen && (currentLine[index] == '/' && currentLine[index + 1] == '*')) {
+            index += 2;
+            std :: cout << "Found a multi-line comment" << std :: endl;
+            commented = true;
+            while(index < lineLen && (currentLine[index] != '*' && currentLine[index + 1] != '/')) {
+                std :: cout << "Searching for the end of the comment, at index: " << index << std :: endl;
+                index++;
+            }
+            if(index == lineLen) {
+                return 1;
+            }
+            else {
+                index += 2;
+            }
+        }
         while(index < lineLen && currentLine[index] == ' ') { index++; }
 
         std :: cout << "Non-white characters from " << index << std :: endl;
@@ -68,19 +84,8 @@ public:
         }
 
         if(index + 1 < lineLen && currentLine[index] == '/' && currentLine[index + 1] == '/') {
+            index = lineLen;
             return 0;
-        }
-        if(index + 1 < lineLen && (currentLine[index] == '/' && currentLine[index + 1] == '*')) {
-            commented = true;
-            while(index < lineLen && currentLine[index] != '*' && currentLine[index + 1] != '/') {
-                index++;
-            }
-            if(index == lineLen) {
-                return 1;
-            }
-            else {
-                index += 2;
-            }
         }
 
         std :: cout << "no comments" << std :: endl;
