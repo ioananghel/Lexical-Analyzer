@@ -56,7 +56,7 @@ class TokenList {
 
             std :: cout << "Token created: " << types[newNode->token->type] << " " << newNode->token->value << std :: endl;
 
-            if(head == nullptr) {
+            if(head->token == nullptr) {
                 std :: cout << "=========================";
                 head = newNode;
                 tail = newNode;
@@ -64,6 +64,13 @@ class TokenList {
             else {
                 tail->next = newNode;
                 tail = newNode;
+            }
+
+            std :: cout << "Seeing the current token list\n";
+            tokenNode *currentNode = head;
+            while(currentNode != nullptr) {
+                std :: cout << "\t\t" << types[currentNode->token->type] << " " << currentNode->token->value << std :: endl;
+                currentNode = currentNode->next;
             }
 
             std :: cout << "Token added: " << types[tail->token->type] << " " << tail->token->value << std :: endl;
@@ -81,31 +88,14 @@ class TokenList {
             std :: cout << "Printing tokens" << std :: endl;
             tokenNode *currentNode = head;
             std::cout << "Head: " << head->token << std :: endl;
-            while(currentNode->token != nullptr) {
+            while(currentNode != nullptr) {
+                std :: cout << "Parsing the tokens\n";
                 std :: cout << types[currentNode->token->type] << " " << currentNode->token->value << std :: endl;
                 currentNode = currentNode->next;
             }
+            std :: cout << "Done printing tokens" << std :: endl;
         }
 
-        // Token getToken(int index) {
-        //     std :: cout << "INTO THE F\n";
-        //     tokenNode *currentNode = new tokenNode;
-        //     std :: cout << "AFTER THE F\n";
-        //     currentNode = head;
-
-        //     std :: cout << "AFTER THE F\n";
-
-        //     // std :: cout << "Starting search from head: " << tokenPointer->type << std :: endl;
-        //     while(index--) {
-        //         currentNode = currentNode->next;
-        //     }
-        //     std :: cout << "Found\n";
-        //     Token tempToken;
-        //     tempToken.type = currentNode->token->type;
-        //     tempToken.value = currentNode->token->value;
-
-        //     return tempToken;
-        // }
         Token getToken(int index) {
             std::cout << "INTO THE F\n";
             tokenNode *currentNode = head;
