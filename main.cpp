@@ -165,6 +165,10 @@ int main(int argc, char *argv[]) {
    std :: cout << "Hello World!\n";
 
    std :: ifstream sourceFile(argv[1]);
+   std :: ofstream destinationFile;
+   destinationFile.open(argv[2]);
+
+   destinationFile << "Hello World!\n";
 
    LexicalAnalyzer *lexicalAnalyzer = new LexicalAnalyzer(argv[1]);
 
@@ -181,15 +185,19 @@ int main(int argc, char *argv[]) {
    std :: cout << "Token creation finished\n";
 
    std :: cout << "Number of tokens: " << lexicalAnalyzer->getNumberOfTokens() << "\n";
-   // index = 0;
-   // while(index < lexicalAnalyzer->getNumberOfTokens()) {
-   //    std :: cout << "Token " << index << "\n";
-   //    Token token = lexicalAnalyzer->getToken(index);
-   //    std :: cout << token.type << " " << token.value << "\n";
-   //    index++;
-   // }
+   index = 0;
+   while(index < lexicalAnalyzer->getNumberOfTokens()) {
+      std :: cout << "Token " << index << "\n";
+      Token token = lexicalAnalyzer->getToken(index);
+      std :: cout << token.type << " " << token.value << "\n";
 
-   lexicalAnalyzer->printTokens();
+      destinationFile << types[token.type] << " " << lexicalAnalyzer->getFromStringTable(token.value) << "\n";
+      index++;
+   }
+
+   destinationFile.close();
+   sourceFile.close();
+   // lexicalAnalyzer->printTokens();
 
    return 0;
 }
