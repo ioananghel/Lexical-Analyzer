@@ -103,6 +103,17 @@ public:
             tempToken.type = 0;
             tempToken.value = stringTable->addString(temp);
 
+            bool foundKeyWord = false;
+            for(auto keyWord : keyWords) {
+                if(temp == keyWord) {
+                    foundKeyWord = true;
+                    break;
+                }
+            }
+            if(foundKeyWord) {
+                tempToken.type = 3;
+            }
+
             std :: cout << "Adding Token: " << types[tempToken.type] << " " << tempToken.value << std :: endl;
 
             tokenList->addToken(tempToken);
@@ -135,13 +146,18 @@ public:
             }
         }
         else if(currentLine[index] == '"') {
-            std :: string temp = currentLine.substr(index,1);
+            std :: cout << "Found a string" << std :: endl;
+            std :: string temp = "\"";
+            index++;
             while(index <= lineLen && currentLine[index] != '"') {
                 temp += currentLine[index++];
             }
-            temp += currentLine[index++];
+            temp += "\"";
+            index++;
+
+            std :: cout << "Temp string: " << temp << std :: endl;
             Token tempToken;
-            tempToken.type = 3;
+            tempToken.type = 4;
             tempToken.value = stringTable->addString(temp);
 
             tokenList->addToken(tempToken);
