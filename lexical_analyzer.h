@@ -16,7 +16,8 @@ public:
     LexicalAnalyzer() = default;
     LexicalAnalyzer(std :: string sourceFile) {
         std :: string keyWords[] = {"if", "else", "while", "do", "break", "continue", "int", "double", "float", "return", "char", "case", "sizeof", "long", "short", "typedef", "switch", "unsigned", "void", "static", "struct", "goto", "default", "for", "enum", "union", "register", "extern", "signed", "volatile", "const", "auto", "restrict", "bool", "complex", "imaginary", "inline", "alignas", "alignof", "atomic", "noreturn", "static_assert", "thread_local"};
-        std :: string operators[] = {"+", "-", "*", "/", "%", "++", "--", "==", "!=", ">", "<", ">=", "<=", "&&", "||", "!", "&", "|", "^", "~", "<<", ">>", "=", "+=", "-=", "*=", "/=", "%=", "<<=", ">>=", "&=", "^=", "|=", ",", ".", "->", "(", ")", "[", "]", "{", "}", ";", ":", "?", "#", "##", "<:", ":>"};
+        std :: string operators[] = {"<<=", ">>=", "++", "--", "==", "!=", ">=", "<=", "&&", "||", "<<", ">>", "+=", "-=", "*=", "/=", "%=", "&=", "^=", "|=", "->", "##", "<:", ":>", "+", "-", "*", "/", "%", ">", "<", "!", "&", "|", "^", "~", "=", ",", ".", "(", ")", "[", "]", "{", "}", ";", ":", "?", "#"};
+
         this->sourceFile = sourceFile;
 
         for(int i = 0; i < 40; i++) {
@@ -167,6 +168,23 @@ public:
 
             tokenList->addToken(tempToken);
         }
+        else {
+            bool foundOperator = false;
+            for(auto op : operators) {
+                if(currentLine.substr(index, op.length()) == op) {
+                    foundOperator = true;
+                    Token tempToken;
+                    tempToken.type = 5;
+                    tempToken.value = stringTable->addString(op);
+
+                    tokenList->addToken(tempToken);
+                    index += op.length();
+                    break;
+                }
+            }
+        }
+
+        index++;
 
         return 0;
     }
