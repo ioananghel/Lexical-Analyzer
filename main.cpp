@@ -162,13 +162,11 @@ Se vor respecta urmatoarele indicatii de implementare:
 // using namespace std;
 int main(int argc, char *argv[]) {
 
-   std :: cout << "Hello World!\n";
-
    std :: ifstream sourceFile(argv[1]);
    std :: ofstream destinationFile;
    destinationFile.open(argv[2]);
 
-   destinationFile << "Hello World!\n";
+   int lineNo = 0;
 
    LexicalAnalyzer *lexicalAnalyzer = new LexicalAnalyzer(argv[1]);
 
@@ -176,11 +174,24 @@ int main(int argc, char *argv[]) {
    int index = 0;
    bool commented = false;
    while(getline(sourceFile, currentLine)) {
+      lineNo++;
       index = 0;
       std :: cout << "=============================\nCurrent line: \n\t" << currentLine << "\n";
       while(index < currentLine.length()) {
          std :: cout << "Index: " << index << "\n";
+         try {
          commented = lexicalAnalyzer->makeTokens(currentLine, commented, index);
+         }
+         catch(const char *error) {
+            std :: cout << "\n\nError found at line " << lineNo << "\n";
+            std :: cout << "Index: " << index << "\n";
+            std :: cout << error << "\n";
+            return 0;
+         }
+         catch(...) {
+            std :: cout << "Unknown error\n";
+            return 0;
+         }
       }
    }
    std :: cout << "Token creation finished\n";

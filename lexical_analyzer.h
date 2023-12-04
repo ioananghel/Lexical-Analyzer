@@ -7,7 +7,6 @@ class LexicalAnalyzer {
     std :: vector<std :: string> keyWords;
     std :: vector<std :: string> operators;
     StringTable *stringTable;
-    ///reference to the source file
     std::string sourceFile;
     std :: string currentLine;
     TokenList *tokenList;
@@ -38,7 +37,6 @@ public:
         delete tokenList;
     }
 
-    // get the next token from the source file
     bool makeTokens(std :: string _currentLine, bool commented, int &index) {
         std :: cout << "Making tokens on " << _currentLine << std :: endl;
         std :: cout << "Commented status: " << commented << std :: endl;
@@ -157,6 +155,11 @@ public:
             index++;
             while(index <= lineLen && currentLine[index] != '"') {
                 temp += currentLine[index++];
+            }
+
+            if(currentLine[index] != '"') {
+                std :: cout << "String does not end with \"" << std :: endl;
+                throw "String does not end with \"";
             }
             temp += "\"";
             index++;
