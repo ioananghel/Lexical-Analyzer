@@ -37,7 +37,7 @@ public:
         delete tokenList;
     }
 
-    bool makeTokens(std :: string _currentLine, bool commented, int &index) {
+    bool getToken(std :: string _currentLine, bool commented, int &index) {
         std :: cout << "Making tokens on " << _currentLine << std :: endl;
         std :: cout << "Commented status: " << commented << std :: endl;
         int lineLen = _currentLine.length();
@@ -97,7 +97,7 @@ public:
             std :: string temp = currentLine.substr(index,1);
             index++;
             std :: cout << "temp: " << temp << std :: endl;
-            while(index <= lineLen && (isalpha(currentLine[index]) || isdigit(currentLine[index]) || currentLine[index] == '_')) {
+            while(index <= lineLen && (isalpha(currentLine[index]) || isdigit(currentLine[index]) || currentLine[index] == '_' || currentLine[index] == '.')) {
                 temp += currentLine[index++];
             }
 
@@ -201,7 +201,7 @@ public:
         tokenList->printTokens();
     }
 
-    Token getToken(int index) {
+    Token getTokenByIndex(int index) {
         std :: cout << "Getting token at " << index << std :: endl;
 
         Token copy;

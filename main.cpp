@@ -180,10 +180,10 @@ int main(int argc, char *argv[]) {
       while(index < currentLine.length()) {
          std :: cout << "Index: " << index << "\n";
          try {
-         commented = lexicalAnalyzer->makeTokens(currentLine, commented, index);
+         commented = lexicalAnalyzer->getToken(currentLine, commented, index);
          }
          catch(const char *error) {
-            std :: cout << "\n\nError found at line " << lineNo << "\n";
+            std :: cout << "\n\nERROR found at line " << lineNo << "\n";
             std :: cout << "Index: " << index << "\n";
             std :: cout << error << "\n";
             return 0;
@@ -200,7 +200,7 @@ int main(int argc, char *argv[]) {
    index = 0;
    while(index < lexicalAnalyzer->getNumberOfTokens()) {
       std :: cout << "Token " << index << "\n";
-      Token token = lexicalAnalyzer->getToken(index);
+      Token token = lexicalAnalyzer->getTokenByIndex(index);
       std :: cout << token.type << " " << token.value << "\n";
 
       destinationFile << types[token.type] << " " << lexicalAnalyzer->getFromStringTable(token.value) << "\n";
